@@ -1,5 +1,6 @@
 <?php
 
+use yii\helpers\Url;
 /** @var yii\web\View $this */
 
 $this->title = 'document-online';
@@ -7,11 +8,10 @@ $this->title = 'document-online';
 <div class="site-index">
 
     <div class="jumbotron text-center bg-transparent">
-        <h1 class="display-4">Congratulations!</h1>
+        <h1 class="display-4">Створи первиннi документи online</h1>
 
-        <p class="lead">You have successfully created your Yii-powered application.</p>
+        <p class="lead">Ми працюємо заради розвитку українського підприємництва</p>
 
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
     </div>
 
     <div class="body-content">
@@ -21,19 +21,18 @@ $this->title = 'document-online';
                 <h2>Видаткова накладна</h2>
                     <p>Створити видаткову накладну</p>
 
-                <p><a class="btn btn-outline-secondary" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
+                <p><a class="btn btn-outline-secondary" href="<?= Url::to(['SalesInvoice/default/create']); ?>">Видаткова накладна &raquo;</a></p>
             </div>
             <div class="col-lg-4">
-                <h2>Heading</h2>
+                <h2>ТТН</h2>
+                    <p>Створити ТТН</p>
 
-                <p><a class="btn btn-outline-secondary" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
+                <p><a class="btn btn-outline-secondary" href="#">ТТН &raquo;</a></p>
             </div>
             <div class="col-lg-4">
-                <h2>Heading</h2>
-
-
-
-                <p><a class="btn btn-outline-secondary" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
+                <h2>Рахунок-фактура</h2>
+                    <p>Створити рахунок-фактуру</p>
+                <p><a class="btn btn-outline-secondary" href="#">Рахунок-фактуру &raquo;</a></p>
             </div>
         </div>
 
