@@ -8,9 +8,15 @@ $params = array_merge(
 
 return [
     'id' => 'app-frontend',
+    'name'=>'Document-online',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
+     'modules' => [
+        'SalesInvoice' => [
+            'class' => 'frontend\modules\SalesInvoice\Module',
+        ],
+    ],
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-frontend',
