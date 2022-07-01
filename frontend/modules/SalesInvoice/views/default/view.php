@@ -70,7 +70,7 @@ use yii\helpers\Html;
             </div>
             <div class="col-md-1 border"><?= $modelIP->quantity; ?></div>
             <div class="col-md-1 border"><?= $modelIP->unit; ?></div>
-            <div class="col-md-2 border"><?= number_format($modelIP->price, 2, '.', ''); ?></div>
+            <div class="col-md-2 border"><?= number_format((float)$modelIP->price, 2, '.', ''); ?></div>
             <div class="col-md-2 border"><?= $modelIP->amountTotal; ?></div>                    
         </div>
 <?php endforeach; ?>
