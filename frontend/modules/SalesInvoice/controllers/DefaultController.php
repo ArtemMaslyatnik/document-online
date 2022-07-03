@@ -4,8 +4,11 @@ namespace frontend\modules\SalesInvoice\controllers;
 
 use Yii;
 use yii\web\Controller;
+use yii\data\ActiveDataProvider;
 use frontend\modules\SalesInvoice\models\forms\SalesInvoiceForm;
-use frontend\modules\SalesInvoice\models\SalesInvoiceProducts;
+use frontend\modules\SalesInvoice\models\SalesInvoiceProduct;
+use frontend\modules\SalesInvoice\models\SalesInvoice;
+use yii\filters\VerbFilter;
 /**
  * Default controller for the `SalesInvoice` module
  */
@@ -20,42 +23,99 @@ class DefaultController extends Controller {
     public $namemil;
     public $namemrd;
     
+    
+      /**
+     * @inheritDoc
+     */
+    public function behaviors() {
+        return array_merge(
+                parent::behaviors(),
+                [
+                    'verbs' => [
+                        'class' => VerbFilter::className(),
+                        'actions' => [
+                            'delete' => ['POST'],
+                        ],
+                    ],
+                ]
+        );
+    }
     /**
      * Renders the index view for the module
      * @return string
      */
     public function actionIndex() {
-        return $this->render('index');
+        
+        $dataProvider = new ActiveDataProvider([
+            'query' => SalesInvoice::find(),
+            /*
+            'pagination' => [
+                'pageSize' => 50
+            ],
+            'sort' => [
+                'defaultOrder' => [
+                    'id' => SORT_DESC,
+                ]
+            ],
+            */
+        ]);
+
+        return $this->render('index', [
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     public function actionCreate() {
-        $sum =0;
-        $model = new SalesInvoiceForm();
-        $modelsIP = [new SalesInvoiceProducts()];
+        $sum = 0;
+        $model = new SalesInvoiceForm(Yii::$app->user->identity);
+        $modelsSIP = [new SalesInvoiceProduct()];
         $view = 'create';
         if ($this->request->isPost && $model->load(Yii::$app->request->post())) {
-            $this->addModels($modelsIP);
-            if (SalesInvoiceProducts::loadMultiple($modelsIP, Yii::$app->request->post()) &&
-                    SalesInvoiceProducts::validateMultiple($modelsIP))  {
-                $sum = $this->getSum($modelsIP);
-                $view = 'view';  
+            $this->addModels($modelsSIP);
+            if (SalesInvoiceProduct::loadMultiple($modelsSIP, Yii::$app->request->post()) &&
+                    SalesInvoiceProduct::validateMultiple($modelsSIP))  {
+                $this->SaveSIP($model, $modelsSIP);
             }
         }
 
         return $this->render($view, [
                     'model' => $model,
-                    'modelsIP' => $modelsIP,
+                    'modelsSIP' => $modelsSIP,
                     'sum' => $sum
         ]);
     }
 
-    public function addModels(&$modelsIP) {
-        $count = count(Yii::$app->request->post('SalesInvoiceProducts', []));
+    public function addModels(&$modelsSIP) 
+    {
+        $count = count(Yii::$app->request->post('SalesInvoiceProduct', []));
         for ($i = 1; $i < $count; $i++) {
-            $modelsIP[] = new SalesInvoiceProducts();
+            $modelsSIP[] = new SalesInvoiceProduct();
         }
     }
-    
+ 
+    private function SaveSIP($model, $modelsSIP) {
+        if (Yii::$app->user->isGuest) {
+            $sum = $this->getSum($modelsSIP);
+            $view = 'view';
+                    
+            return $this->render($view, [
+                    'model' => $model,
+                    'modelsSIP' => $modelsSIP,
+                    'sum' => $sum
+        ]);
+        }
+
+        $modelSI = $model->save();
+        if (isset($modelSI) && $modelSI != false) {
+            foreach ($modelsSIP as $modelSIP) {
+                $modelSIP->save(false);
+                $modelSI->link('salesInvoiceProduct', $modelSIP);
+            }
+            Yii::$app->session->setFlash('success', 'Resume created!');
+            return $this->redirect(['/']);
+        }
+    }
+
     private function getSum($modelsIP) {
         $arr = [];
         $sum = 0;

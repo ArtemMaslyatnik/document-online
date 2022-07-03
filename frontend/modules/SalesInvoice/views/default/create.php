@@ -33,7 +33,7 @@ $this->title = 'document-online';
         </div>
         <div class="row">
             <label class="col-2"></label>
-            <div class="col-10"><?php echo $form->field($model, 'bankAccount')->textarea(['placeholder' => "р/р 000000000000000"])->label(false); ?></div>
+            <div class="col-10"><?php  echo  $form->field($model, 'bank_account')->textarea(['placeholder' => "р/р 000000000000000"])->label(false); ?></div>
         </div>
         <br>
         <div class="row">
@@ -42,7 +42,7 @@ $this->title = 'document-online';
         </div>
         <div class="row">
             <label class="col-2"></label> 
-            <div class="col-10"><?php echo $form->field($model, 'counterpartyBankAcc')->textarea(['placeholder' => "р/р 000000000000000"])->label(false); ?></div>
+            <div class="col-10"><?php  echo  $form->field($model, 'counterparty_bank_acc')->textarea(['placeholder' => "р/р 000000000000000"])->label(false); ?></div>
           </div>
         <br>
         <div class="row">
@@ -82,20 +82,20 @@ $this->title = 'document-online';
         <!-- \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ -->
         <!--  row -->
         <div id="sales-invoice-products"> 
-            <?php foreach ($modelsIP as $index => $modelIP): ?>
+            <?php foreach ($modelsSIP as $index => $modelSIP): ?>
                 <div class="row">
                     <div class="col-md-5">
                         <div class="row">
-                            <div class="col-md-2 p-0"><?php echo $form->field($modelIP, "[$index]lineNumber")->label(false)->textInput(['value' => 1 , 'readonly' => '']) ; ?></div>
-                            <div class="col-md-10 p-0"><?php echo $form->field($modelIP, "[$index]product")->label(false); ?></div>
+                            <div class="col-md-1 p-0"><?php echo $form->field($modelSIP, "[$index]line_number")->label(false)->textInput(['value' => 1 , 'readonly' => '']) ; ?></div>
+                            <div class="col-md-11 p-0"><?php echo $form->field($modelSIP, "[$index]product_id")->label(false); ?></div>
                         </div>
                     </div>
-                    <div class="col-md-2 p-0"><?php echo $form->field($modelIP, "[$index]quantity")->label(false)->textInput(['type' => 'number', 'step'=>'0.001']); ?></div>
-                    <div class="col-md-1 p-0"><?php echo $form->field($modelIP, "[$index]unit")->label(false); ?></div>
-                    <div class="col-md-2 p-0"><?php echo $form->field($modelIP, "[$index]price")->label(false)->textInput(['type' => 'number', 'step'=>'0.01']); ?></div>
+                    <div class="col-md-2 p-0"><?php echo $form->field($modelSIP, "[$index]quantity")->label(false)->textInput(['type' => 'number', 'step'=>'0.001']); ?></div>
+                    <div class="col-md-1 p-0"><?php echo $form->field($modelSIP, "[$index]unit_id")->label(false); ?></div>
+                    <div class="col-md-2 p-0"><?php echo $form->field($modelSIP, "[$index]price")->label(false)->textInput(['type' => 'number', 'step'=>'0.01']); ?></div>
                     <div class="col-md-2">
                         <div class="row">
-                            <div class="col-md-10 p-0"><?php echo $form->field($modelIP, "[$index]amountTotal")->label(false)->textInput(['type' => 'number', 'step'=>'0.01']); ?></div>
+                            <div class="col-md-10 p-0"><?php echo $form->field($modelSIP, "[$index]amount_total")->label(false)->textInput(['type' => 'number', 'step'=>'0.01']); ?></div>
                             <div class="col-md-2 p-0"><?= Html::button('-', ['id' => 'button-delete-row', 'name' => 'delete-row', 'class' => 'btn btn-danger']) ?></div>
                         </div>
                     </div>                    
@@ -133,16 +133,16 @@ $this->title = 'document-online';
         <!-- footer -->
         <div class="row">
             <div class="col-3"><strong>Від постачальника:</strong></div>
-            <div class="col-3"><?php echo $form->field($model, 'authorityManager')->label(false); ?></div>
+            <div class="col-3"><?php echo $form->field($model, 'authority_manager')->label(false); ?></div>
             <div class="col-3"><strong>Отримав(ла)</strong></div>
-            <div class="col-3"><?php echo $form->field($model, 'authorityCounterparty')->label(false); ?></div>
+            <div class="col-3"><?php echo $form->field($model, 'authority_counterparty')->label(false); ?></div>
         </div> 
         <div class="row">
             <div class="col-5"></div>
             <div class="col-2"><strong>За довіреністю №</strong></div>
-            <div class="col-2"><?php echo $form->field($model, 'proxyNumber')->label(false); ?></div>
+            <div class="col-2"><?php echo $form->field($model, 'proxy_number')->label(false); ?></div>
             <div class="col-1"><strong>від</strong></div>
-            <div class="col-2"><?php echo $form->field($model, 'proxyDate')->label(false); ?></div>
+            <div class="col-2"><?php echo $form->field($model, 'proxy_date')->label(false); ?></div>
         </div>
         
     <div class="form-group">

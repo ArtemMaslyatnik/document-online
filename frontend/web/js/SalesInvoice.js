@@ -3,12 +3,11 @@
 $(document).ready(function () {
     $('#button-add-row').on('click', function () {
         // перевести в общюю соблюдать очередность функций
-        var elem = $("#sales-invoice-products").children('div');
+        let elem = $("#sales-invoice-products").children('div');
         $('#count-line-product-total').text('Всього найменувань ' + (elem.length+1) +'.');
-       
+      
         
         $("#sales-invoice-products").append(stringNewRewProduct(elem.length));
-
 
     });
  });
@@ -73,26 +72,26 @@ function stringNewRewProduct(i) {
     return '<div class="row">'
     +    '<div class="col-md-5">'
     +        '<div class="row">'
-    +            '<div class="col-md-1 p-0"><div class="form-group field-salesinvoiceproducts-' + i + '-linenumber">'
-    +                '<input type="text" id="salesinvoiceproducts-' + i + '-linenumber" class="form-control" name="SalesInvoiceProducts[' + i + '][lineNumber]" value=' + (i === 1 ? 2 : i+1) + ' readonly="" >'
+    +            '<div class="col-md-1 p-0"><div class="form-group field-salesinvoiceproduct-' + i + '-linenumber">'
+    +                '<input type="text" id="salesinvoiceproduct-' + i + '-linenumber" class="form-control" name="SalesInvoiceProduct[' + i + '][lineNumber]" value=' + (i === 1 ? 2 : i+1) + ' readonly="" >'
     +                '<div class="help-block"></div></div></div>'
-    +            '<div class="col-md-11 p-0"><div class="form-group field-salesinvoiceproducts-' + i + '-product">'
-    +                '<input type="text" id="salesinvoiceproducts-' + i + '-product" class="form-control" name="SalesInvoiceProducts[' + i + '][product]">'
+    +            '<div class="col-md-11 p-0"><div class="form-group field-salesinvoiceproduct-' + i + '-product">'
+    +                '<input type="text" id="salesinvoiceproduct-' + i + '-product" class="form-control" name="SalesInvoiceProduct[' + i + '][product]">'
     +                '<div class="help-block"></div></div></div></div></div>'
     +    '<div class="col-md-2 p-0">'
-    +        '<div class="form-group field-salesinvoiceproducts-' + i + '-quantity">'
-    +            '<input type="number" id="salesinvoiceproducts-' + i + '-quantity" class="form-control" name="SalesInvoiceProducts[' + i + '][quantity]" step="0.001">'
+    +        '<div class="form-group field-salesinvoiceproduct-' + i + '-quantity">'
+    +            '<input type="number" id="salesinvoiceproduct-' + i + '-quantity" class="form-control" name="SalesInvoiceProduct[' + i + '][quantity]" step="0.001">'
     +            '<div class="help-block"></div></div></div>'
-    +    '<div class="col-md-1 p-0"><div class="form-group field-salesinvoiceproducts-' + i + '-unit">'
-    +            '<input type="text" id="salesinvoiceproducts-' + i + '-unit" class="form-control" name="SalesInvoiceProducts[' + i + '][unit]">'
+    +    '<div class="col-md-1 p-0"><div class="form-group field-salesinvoiceproduct-' + i + '-unit">'
+    +            '<input type="text" id="salesinvoiceproduct-' + i + '-unit" class="form-control" name="SalesInvoiceProduct[' + i + '][unit]">'
     +            '<div class="help-block"></div></div></div>'
-    +    '<div class="col-md-2 p-0"><div class="form-group field-salesinvoiceproducts-' + i + '-price">'
-    +            '<input type="number" id="salesinvoiceproducts-' + i + '-price" class="form-control" name="SalesInvoiceProducts[' + i + '][price]" step="0.01">'
+    +    '<div class="col-md-2 p-0"><div class="form-group field-salesinvoiceproduct-' + i + '-price">'
+    +            '<input type="number" id="salesinvoiceproduct-' + i + '-price" class="form-control" name="SalesInvoiceProduct[' + i + '][price]" step="0.01">'
     +            '<div class="help-block"></div></div></div>'
     +    '<div class="col-md-2">'
     +        '<div class="row">'
-    +            '<div class="col-md-10 p-0"><div class="form-group field-salesinvoiceproducts-' + i + '-amounttotal">'  
-    +                '<input type="number" id="salesinvoiceproducts-' + i + '-amounttotal" class="form-control" name="SalesInvoiceProducts[' + i + '][amountTotal]" step="0.01">'
+    +            '<div class="col-md-10 p-0"><div class="form-group field-salesinvoiceproduct-' + i + '-amounttotal">'  
+    +                '<input type="number" id="salesinvoiceproduct-' + i + '-amounttotal" class="form-control" name="SalesInvoiceProduct[' + i + '][amountTotal]" step="0.01">'
     +                '<div class="help-block"></div></div></div>'
     +            '<div class="col-md-2 p-0"><button type="button" id="button-delete-row" class="btn btn-danger" name="delete-row">-</button></div>'  
     +     '</div></div></div>';

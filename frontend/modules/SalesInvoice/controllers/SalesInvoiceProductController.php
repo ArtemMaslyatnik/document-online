@@ -8,7 +8,7 @@ use app\models\Setting;
 /**
  * Default controller for the `SalesInvoice` module
  */
-class SalesInvoiceGoodsController extends Controller
+class SalesInvoiceProductController extends Controller
 {
     /**
      * Renders the index view for the module
