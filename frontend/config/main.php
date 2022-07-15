@@ -16,6 +16,9 @@ return [
         'SalesInvoice' => [
             'class' => 'frontend\modules\SalesInvoice\Module',
         ],
+        'catalog' => [
+            'class' => 'frontend\modules\catalog\Module',
+        ],
     ],
     'components' => [
         'request' => [

@@ -3,18 +3,19 @@
 use yii\db\Migration;
 
 /**
- * Class m220703_094604_company_table
+ * Class m220715_123626_counterparty_table
  */
-class m220703_094604_company_table extends Migration
+class m220715_123626_counterparty_table extends Migration
 {
       /**
      * {@inheritdoc}
      */
     public function safeUp()
     {
-        $this->createTable('company', [
+        $this->createTable('counterparty', [
             'id' => $this->primaryKey(11),
             'user_id' => $this->integer(11)->notNull(),
+            'contract_id' => $this->integer(11)->notNull(),
             'full_name' => $this->string(128)->notNull(),
             'name' => $this->string(64)->notNull(),
             'bank' => $this->string(64)->notNull(),
@@ -29,6 +30,6 @@ class m220703_094604_company_table extends Migration
      */
     public function safeDown()
     {
-        $this->dropTable('company');
+        $this->dropTable('counterparty');
     }
 }

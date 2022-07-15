@@ -6,25 +6,125 @@ $(document).ready(function () {
         let elem = $("#sales-invoice-products").children('div');
         $('#count-line-product-total').text('Всього найменувань ' + (elem.length+1) +'.');
       
-        
-        $("#sales-invoice-products").append(stringNewRewProduct(elem.length));
+        console.log(1);
+        $("#sales-invoice-products").append(stringNewRowProduct(elem.length));
 
     });
  });
  
  //delete row products 
 $(document).ready(function () {
-     $('#sales-invoice-products').on('click', '.btn-danger', function() {
+     $('#sales-invoice-products').on('click', '.btn-outline-secondary', function() {
          
         $(this).parent().parent().parent().parent().remove();
         
          // !!!!!!!!перевести в общюю
         var elem = $("#sales-invoice-products").children('div');
         $('#count-line-product-total').text('Всього найменувань ' + (elem.length) +'.');
-        
-
+ 
     });
  });
+ 
+
+
+
+//view list company 
+$(document).ready(function () {
+    $('#button-list-company').on('click', function () {
+        
+    $('#modal-list-company').modal('show');
+    $('#modal-list-company').find('.modal-body').load('../../catalog/company/index');
+
+    });     
+});
+
+// create company 
+$(document).ready(function () {
+        $('#modal-list-company').on('click', '#button-create-company', function(event) { 
+        $('#modal-list-company').modal('show');
+        $('#modal-list-company').find('.modal-body').load('../../catalog/company/create');
+    });     
+});
+
+//save company
+$(document).ready(function () {
+    $('#modal-list-company').on('click', '#button-save-company', function(event) { 
+
+        event.preventDefault();
+        var data = $('#form-data-company').serialize();
+        $.ajax({      
+            url: '../../catalog/company/create',
+            type: 'POST',
+            data: data,
+            dataType: 'json',
+            beforeSend: function () {
+            },
+            complete: function () {
+            },
+            success: function (json) {
+                $('#modal-list-company').modal('hide'); 
+                $('#salesinvoiceform-company').val($(this).attr(json.id));
+                $('#select2-salesinvoiceform-company-container').text(json.name);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(thrownError + xhr.statusText + +xhr.responseText);
+            },
+            timeout: 10000
+        });
+        $('#button-add-education-form').show();
+    });
+});
+
+//search company
+$(document).ready(function () {
+    $('#modal-list-company').on('click', '#btn-search', function(event) { 
+
+        event.preventDefault();
+        var data = $('#modal-list-company input[name=\'CompanySearch[name]\'], #modal-list-company input[name=\'CompanySearch[id]\']');
+        $.ajax({      
+            url: '../../catalog/company/resulte',
+            type: 'GET',
+            data: data,
+            dataType: 'json',
+            beforeSend: function () {
+            },
+            complete: function () {
+            },
+            success: function (json) {
+                console.log(json);
+                $('#list-company-result').empty();
+                let aa = stringSearchRowProduct(json);
+                console.log(aa);
+                $('#list-company-result').append(aa);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(thrownError + xhr.statusText + +xhr.responseText);
+            },
+            timeout: 10000
+        });
+        $('#button-add-education-form').show();
+    });
+});
+
+//close modal insert company
+$(document).ready(function () {
+    $('#modal-list-company').on('click', '.insert-link-company', function(event) { 
+        event.preventDefault();
+        $('#salesinvoiceform-company').val($(this).attr('data-kay'));
+        $('#select2-salesinvoiceform-company-container').text($(this).text());
+        $('#modal-list-company').modal('hide'); 
+     });
+});
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
  
  //set amounttotal
 $(document).ready(function () {
@@ -67,7 +167,7 @@ function setAmountTotalDocument() {
     $('#document-total').text(total.toFixed(2));
 }
 
-function stringNewRewProduct(i) {
+function stringNewRowProduct(i) {
      
     return '<div class="row">'
     +    '<div class="col-md-5">'
@@ -93,7 +193,23 @@ function stringNewRewProduct(i) {
     +            '<div class="col-md-10 p-0"><div class="form-group field-salesinvoiceproduct-' + i + '-amounttotal">'  
     +                '<input type="number" id="salesinvoiceproduct-' + i + '-amounttotal" class="form-control" name="SalesInvoiceProduct[' + i + '][amountTotal]" step="0.01">'
     +                '<div class="help-block"></div></div></div>'
-    +            '<div class="col-md-2 p-0"><button type="button" id="button-delete-row" class="btn btn-danger" name="delete-row">-</button></div>'  
+    +            '<div class="col-md-2 p-0"><button type="button" id="button-delete-row" class="btn btn-outline-secondary" name="delete-row">-</button></div>'  
     +     '</div></div></div>';
   
    }
+
+function stringSearchRowProduct(json) {
+    
+    let htmlText ='';
+    for (key in json) {
+        htmlText += '<div class="row" data-key="'+ json[key].id +'">'
+                +       '<div class="col-lg-1">'+ json[key].id +'<br></div>'
+                +       '<div class="col-lg-8"><a class="insert-link-company" href="/document-online/frontend/web/company/#?id='+ json[key].id +'" data-kay="'+ json[key].id +'" onclick="return false">'+ json[key].name +'</a><br></div>'
+                +       '<div class="col-lg-3">'+ json[key].edrpou +'<br></div>'
+                +   '</div>';
+    }
+
+    return htmlText;
+}
+
+

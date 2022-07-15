@@ -5,6 +5,8 @@ namespace frontend\modules\SalesInvoice\models\forms;
 use yii\base\Model;
 use frontend\modules\SalesInvoice\models\SalesInvoice;
 use common\models\User;
+use frontend\modules\catalog\models\Company;
+use yii\helpers\ArrayHelper;
 
 class SalesInvoiceForm extends Model {
     
@@ -37,8 +39,9 @@ class SalesInvoiceForm extends Model {
     public function rules()
     {
         return [
+            [['date'], 'required'],
             [['proxy_number'], 'integer'],
-            [['number', 'proxy_date', 'date', 'company', 'bank_account', 'contract', 'counterparty', 'counterparty_bank_acc', 'authority_manager', 'authority_counterparty'], 'string', 'max' => 255],
+            [['number', 'proxy_date', 'company', 'bank_account', 'contract', 'counterparty', 'counterparty_bank_acc', 'authority_manager', 'authority_counterparty'], 'string', 'max' => 255],
        ];
     }
     
@@ -59,7 +62,7 @@ class SalesInvoiceForm extends Model {
             $salesInvoice->user_id = $this->user->getId();
             $salesInvoice->date = $this->date;
             $salesInvoice->number = $this->number;
-            $salesInvoice->company_id = 1;
+            $salesInvoice->company_id = $this->company;
             $salesInvoice->contract_id = 1;
             $salesInvoice->counterparty_id = 1;
             $salesInvoice->authority_manager = $this->authority_manager;
@@ -74,5 +77,12 @@ class SalesInvoiceForm extends Model {
         return false;
 
     }
+    
+    
+    public function getСompanyList() {
+
+        return ArrayHelper::map(Company::find()->all(), 'id', 'name');
+
+    }  
  
 }

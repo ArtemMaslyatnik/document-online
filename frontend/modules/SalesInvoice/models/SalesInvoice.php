@@ -11,7 +11,7 @@ use frontend\modules\SalesInvoice\models\SalesInvoiceProduct;
  *
  * @property int $id
  * @property int $user_id
- * @property int $date
+ * @property dateTime $date
  * @property string $number
  * @property int $company_id
  * @property int $contract_id

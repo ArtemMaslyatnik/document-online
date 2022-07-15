@@ -5,31 +5,68 @@
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
 use yii\web\JqueryAsset;
+use kartik\select2\Select2;
+use kartik\datetime\DateTimePicker;
+
+
 
 $this->title = 'document-online';
 ?>
 
 <div class="sales-invoice-documet">
-    
-    <h1>створити Видаткову накладну</h1>
-
+   
     <?php $form = ActiveForm::begin(); ?>
+    <h1>створити Видаткову накладну</h1>
+    <!-- ////////////////////////////////////////////////////////////////Modal /////////////////////////////////////-->
+    <div class="modal fade bd-example-modal-lg" id="modal-list-company" tabindex="-1" role="dialog" aria-labelledby="buton-add-company-Label" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                   </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <!-- ////////////////////////////////////////////////////////////////Modal /////////////////////////////////////-->
     
         <!-- header -->
         <br>
         <br>
         <div class="row">
-            <div class="col-2"></div>
             <label class="col-3"><strong>Видаткова накладна №</strong></label>
             <div class="col-2"><?php echo $form->field($model, 'number')->label(false); ?></div>
             <label class="col-1"><strong>від</strong></label>
-            <div class="col-2"><?php echo $form->field($model, 'date')->label(false); ?></div>
+            <div class="col-3"><?php echo $form->field($model, 'date')->widget(DateTimePicker::className(), [
+                                        'type' => DateTimePicker::TYPE_COMPONENT_APPEND,
+                                        'pluginOptions' => [
+                                            'language' => 'ru',                                            
+                                            'autoclose' => true,
+                                            'format' => 'dd:mm:yyyy hh:ii:ss',
+                                            'save'
+                                          ]
+                                    ])->label(false); ?></div> 
         </div>
         <br>
         <br>
         <div class="row">
             <label class="col-2"><strong>Постачальник:</strong></label>
-            <div class="col-10"><?php echo $form->field($model, 'company')->textInput(['placeholder' => "ООО Постачальник"])->label(false); ?></div>
+            <div class="col-10"><?php echo $form->field($model, 'company')->widget(Select2::classname(), [
+                                    'data' => $model->getСompanyList(),
+                                    'options' => ['placeholder' => 'Постачальник ...'],
+                                    'pluginOptions' => [
+                                        'allowClear' => true
+                                    ],
+                                    'addon' => [
+                                        'append' => [
+                                            'content' => Html::button('+', ['id' => 'button-list-company','class' => 'btn btn-outline-success',]),
+                                            'asButton' => true
+                                        ]
+                                    ],
+                                ])->label(false);?></div>
         </div>
         <div class="row">
             <label class="col-2"></label>
@@ -51,20 +88,6 @@ $this->title = 'document-online';
         </div>
         <!-- \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ -->
         <!-- table 
-        <div class="row">
-            <div class="col-sm-1 border">1</div>
-            <div class="col-sm-1 border">2</div>
-            <div class="col-sm-1 border">3</div>
-            <div class="col-sm-1 border">4</div>
-            <div class="col-sm-1 border">5</div>
-            <div class="col-sm-1 border">6</div>
-            <div class="col-sm-1 border">7</div>
-            <div class="col-sm-1 border">8</div>
-            <div class="col-sm-1 border">9</div>
-            <div class="col-sm-1 border">10</div>
-            <div class="col-sm-1 border">11</div>
-            <div class="col-sm-1 border">12</div>
-        </div> -->
         <!-- \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ -->
         <!-- header table -->
         <div class="row">
@@ -96,14 +119,14 @@ $this->title = 'document-online';
                     <div class="col-md-2">
                         <div class="row">
                             <div class="col-md-10 p-0"><?php echo $form->field($modelSIP, "[$index]amount_total")->label(false)->textInput(['type' => 'number', 'step'=>'0.01']); ?></div>
-                            <div class="col-md-2 p-0"><?= Html::button('-', ['id' => 'button-delete-row', 'name' => 'delete-row', 'class' => 'btn btn-danger']) ?></div>
+                            <div class="col-md-2 p-0"><?= Html::button('-', ['id' => 'button-delete-row', 'name' => 'delete-row', 'class' => 'btn btn-outline-secondary']) ?></div>
                         </div>
                     </div>                    
                 </div>
             <?php endforeach; ?>
         </div>
         <div class="form-group">
-            <?= Html::button('+', ['id' => 'button-add-row', 'name' => 'add-row', 'class' => 'btn btn-success']) ?>
+            <?= Html::button('+', ['id' => 'button-add-row', 'name' => 'add-row', 'class' => 'btn btn-outline-success']) ?>
          </div>
         <!-- \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ -->
         <!--  footer table -->
@@ -146,7 +169,7 @@ $this->title = 'document-online';
         </div>
         
     <div class="form-group">
-        <?= Html::submitButton('Create', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Create', ['class' => 'btn btn-outline-success']) ?>
     </div>    
     <?php ActiveForm::end(); ?>        
 </div>
