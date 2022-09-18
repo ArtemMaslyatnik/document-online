@@ -105,9 +105,10 @@ class CompanyController extends Controller
                     return $json = array('id' => $model->id, 'name' => $model->name);
                 }
 
-            }
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            } else {
+                if ($model->load($this->request->post()) && $model->save()) {
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
             }
         } else {
             $model->loadDefaultValues();

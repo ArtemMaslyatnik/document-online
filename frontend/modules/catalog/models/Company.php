@@ -3,8 +3,7 @@
 namespace frontend\modules\catalog\models;
   
 use yii\behaviors\BlameableBehavior;
-use Yii;
-use \yii\db\ActiveRecord;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "company".
@@ -35,11 +34,13 @@ class Company extends ActiveRecord
     public function rules()
     {
         return [
-            [['user_id','full_name', 'name', 'bank', 'address', 'edrpou'], 'required'],
-            [['user_id', 'edrpou', 'ipn'], 'integer'],
+            [['user_id','full_name', 'name', 'bank', 'address', 'edrpou', 'ipn'], 'required'],
+            [['user_id'], 'integer'],
             [['full_name'], 'string', 'max' => 128],
             [['name', 'bank'], 'string', 'max' => 64],
             [['address'], 'string', 'max' => 256],
+            [['edrpou'], 'string', 'max' => 8],
+            [['ipn'], 'string', 'max' => 12],
         ];
     }
 

@@ -2,7 +2,8 @@
 
 namespace frontend\modules\catalog\models;
 
-use Yii;
+use yii\behaviors\BlameableBehavior;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "counterparty".
@@ -33,7 +34,7 @@ class Counterparty extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'contract_id', 'full_name', 'name', 'bank', 'address', 'edrpou'], 'required'],
+            [['user_id', 'contract_id', 'full_name', 'name', 'bank', 'address', 'edrpou', 'ipn'], 'required'],
             [['user_id', 'contract_id'], 'integer'],
             [['full_name'], 'string', 'max' => 128],
             [['name', 'bank'], 'string', 'max' => 64],
@@ -60,4 +61,18 @@ class Counterparty extends \yii\db\ActiveRecord
             'ipn' => 'Ipn',
         ];
     }
+    
+    public function behaviors()
+{
+    return [
+        [
+            'class' => BlameableBehavior::class,
+            'createdByAttribute' => 'user_id',
+            'updatedByAttribute' => false,
+            'attributes' => [
+                ActiveRecord::EVENT_BEFORE_VALIDATE => ['user_id'] // If usr_id is required
+            ]
+        ],
+    ];
+}
 }

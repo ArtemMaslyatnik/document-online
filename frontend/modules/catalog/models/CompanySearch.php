@@ -59,14 +59,14 @@ class CompanySearch extends Company
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'edrpou' => $this->edrpou,
-            'ipn' => $this->ipn,
         ]);
 
         $query->andFilterWhere(['like', 'full_name', $this->full_name])
             ->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'bank', $this->bank])
-            ->andFilterWhere(['like', 'address', $this->address]);
+            ->andFilterWhere(['like', 'address', $this->address])
+            ->andFilterWhere(['like', 'edrpou', $this->edrpou])
+            ->andFilterWhere(['like', 'ipn', $this->ipn]);
 
         return $dataProvider;
     }

@@ -27,28 +27,31 @@ $(document).ready(function () {
  
 
 
-
-//view list company 
+  /////////////////////////////////////////////Catalog //////////////////////////////////////////////////////////////////////////////////
+  //
+  
+////////////////////////////////////////////////Company////////////////////////////////////////////////////////////////////////////////////
+///view list company 
 $(document).ready(function () {
     $('#button-list-company').on('click', function () {
         
-    $('#modal-list-company').modal('show');
-    $('#modal-list-company').find('.modal-body').load('../../catalog/company/index');
+    $('#modal-list').modal('show');
+    $('#modal-list').find('.modal-body').load('../../catalog/company/index');
 
     });     
 });
 
 // create company 
 $(document).ready(function () {
-        $('#modal-list-company').on('click', '#button-create-company', function(event) { 
-        $('#modal-list-company').modal('show');
-        $('#modal-list-company').find('.modal-body').load('../../catalog/company/create');
+        $('#modal-list').on('click', '#button-create-company', function(event) { 
+        $('#modal-list').modal('show');
+        $('#modal-list').find('.modal-body').load('../../catalog/company/create');
     });     
 });
 
 //save company
 $(document).ready(function () {
-    $('#modal-list-company').on('click', '#button-save-company', function(event) { 
+    $('#modal-list').on('click', '#button-save-company', function(event) { 
 
         event.preventDefault();
         var data = $('#form-data-company').serialize();
@@ -62,7 +65,7 @@ $(document).ready(function () {
             complete: function () {
             },
             success: function (json) {
-                $('#modal-list-company').modal('hide'); 
+                $('#modal-list').modal('hide'); 
                 $('#salesinvoiceform-company').val($(this).attr(json.id));
                 $('#select2-salesinvoiceform-company-container').text(json.name);
             },
@@ -77,10 +80,10 @@ $(document).ready(function () {
 
 //search company
 $(document).ready(function () {
-    $('#modal-list-company').on('click', '#btn-search', function(event) { 
+    $('#modal-list').on('click', '#btn-search', function(event) { 
 
         event.preventDefault();
-        var data = $('#modal-list-company input[name=\'CompanySearch[name]\'], #modal-list-company input[name=\'CompanySearch[id]\']');
+        var data = $('#modal-list input[name=\'CompanySearch[name]\'], #modal-list input[name=\'CompanySearch[id]\'] #modal-list input[name=\'CompanySearch[edrpou]\']');
         $.ajax({      
             url: '../../catalog/company/resulte',
             type: 'GET',
@@ -108,23 +111,103 @@ $(document).ready(function () {
 
 //close modal insert company
 $(document).ready(function () {
-    $('#modal-list-company').on('click', '.insert-link-company', function(event) { 
+    $('#modal-list').on('click', '.insert-link-company', function(event) { 
         event.preventDefault();
         $('#salesinvoiceform-company').val($(this).attr('data-kay'));
         $('#select2-salesinvoiceform-company-container').text($(this).text());
-        $('#modal-list-company').modal('hide'); 
+        $('#modal-list').modal('hide'); 
      });
 });
  
+ ////////////////////////////////////////////////counterparty///////////////////////////////////////////////////////////////////////////////////
  
+ ///view list counterparty 
+$(document).ready(function () {
+    $('#button-list-counterparty').on('click', function () {
+        
+    $('#modal-list').modal('show');
+    $('#modal-list').find('.modal-body').load('../../catalog/counterparty/index');
+    });     
+});
+
+// create counterparty 
+$(document).ready(function () {
+        $('#modal-list').on('click', '#button-create-counterparty', function(event) { 
+        $('#modal-list').modal('show');
+        $('#modal-list').find('.modal-body').load('../../catalog/counterparty/create');
+    });     
+});
  
+//search counterparty
+$(document).ready(function () {
+    $('#modal-list').on('click', '#btn-search', function(event) { 
+
+        event.preventDefault();
+        var data = $('#modal-list input[name=\'CompanySearch[id]\'], #modal-list input[name=\'CompanySearch[name]\'], #modal-list input[name=\'CompanySearch[edrpou]\']');
+        $.ajax({      
+            url: '../../catalog/company/resulte',
+            type: 'get',
+            data: data,
+            dataType: 'json',
+            beforeSend: function () {
+            },
+            complete: function () {
+            },
+            success: function (json) {
+                console.log(json);
+                $('#list-company-result').empty();
+                let aa = stringSearchRowProduct(json);
+                console.log(aa);
+                $('#list-company-result').append(aa);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(thrownError + xhr.statusText + +xhr.responseText);
+            },
+            timeout: 10000
+        });
+        $('#button-add-education-form').show();
+    });
+});
  
+//save counterparty
+$(document).ready(function () {
+    $('#modal-list').on('click', '#button-save-counterparty', function(event) { 
+
+        event.preventDefault();
+        var data = $('#form-data-counterparty').serialize();
+        $.ajax({      
+            url: '../../catalog/counterparty/create',
+            type: 'POST',
+            data: data,
+            dataType: 'json',
+            beforeSend: function () {
+            },
+            complete: function () {
+            },
+            success: function (json) {
+                $('#modal-list').modal('hide'); 
+                $('#salesinvoiceform-counterparty').val($(this).attr(json.id));
+                $('#select2-salesinvoiceform-counterparty-container').text(json.name);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(thrownError + xhr.statusText + +xhr.responseText);
+            },
+            timeout: 10000
+        });
+        $('#button-add-education-form').show();
+    });
+});
  
- 
- 
- 
- 
- 
+//close modal insert company
+$(document).ready(function () {
+    $('#modal-list').on('click', '.insert-link-counterparty', function(event) { 
+        event.preventDefault();
+        $('#salesinvoiceform-counterparty').val($(this).attr('data-kay'));
+        $('#select2-salesinvoiceform-counterparty-container').text($(this).text());
+        $('#modal-list').modal('hide'); 
+     });
+});
+   
  
  //set amounttotal
 $(document).ready(function () {

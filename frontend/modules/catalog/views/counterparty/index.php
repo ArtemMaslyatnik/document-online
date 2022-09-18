@@ -9,7 +9,9 @@ use frontend\modules\catalog\models\Counterparty;
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\modules\catalog\models\CounterpartySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-/* @var $dataProvider yii\data\ActiveDataProvider */
+
+
+
 
 $this->title = 'Counterparties';
 $this->params['breadcrumbs'][] = $this->title;

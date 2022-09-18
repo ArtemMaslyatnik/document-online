@@ -7,6 +7,7 @@ use frontend\modules\catalog\models\CounterpartySearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use Yii;
 
 /**
  * CounterpartyController implements the CRUD actions for Counterparty model.
@@ -32,23 +33,47 @@ class CounterpartyController extends Controller
     }
 
     /**
-     * Lists all Counterparty models.
+     * Lists all counterparty models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new CounterpartySearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        if ($this->request->isAjax) {  
+              $models = Counterparty::find()->all();
+                return $this->render('list', [
+                    'models' => $models,
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+               ]);
+        } else {
+            $searchModel = new CounterpartySearch();
+            $dataProvider = $searchModel->search($this->request->queryParams);
+
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        }
+     }
+
+     /**
+     * Lists all counterparty models.
+     *
+     * @return string
+     */
+    public function actionResulte()
+    {
+        Yii::$app->response->format = yii\web\Response::FORMAT_JSON;
+        if ($this->request->isAjax) {   
+
+            $searchModel = new CounterpartySearch();
+            $dataProvider = $searchModel->search($this->request->queryParams);
+            return $this->dataProviderToArray($dataProvider); 
+   
+        }
     }
-
     /**
-     * Displays a single Counterparty model.
+     * Displays a single counterparty model.
      * @param int $id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
@@ -61,25 +86,36 @@ class CounterpartyController extends Controller
     }
 
     /**
-     * Creates a new Counterparty model.
+     * Creates a new counterparty model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new Counterparty();
+          $model = new Counterparty();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            if ($this->request->isAjax) {
+                if ($model->load($this->request->post()) && $model->save()) {
+                    Yii::$app->response->format = yii\web\Response::FORMAT_JSON;
+                    return $json = array('id' => $model->id, 'name' => $model->name);
+                }
+
+            } else {
+                if ($model->load($this->request->post()) && $model->save()) {
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
             }
         } else {
             $model->loadDefaultValues();
         }
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+        if ($this->request->isAjax) {
+            return $this->render('_formAjax', ['model' => $model]);
+        } else {
+            return $this->render('create', ['model' => $model]);
+        }
+   
     }
 
     /**
@@ -130,5 +166,19 @@ class CounterpartyController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    
+        private function dataProviderToArray ($dataProvider) {
+        $json = false;
+            foreach ($dataProvider->models as $model) {
+                $company = array(
+                    'id' => $model->id,
+                    'name' => $model->name,
+                    'edrpou' => $model->edrpou
+                    );
+                $json[] = $company;
+            }
+            return $json;
     }
 }
