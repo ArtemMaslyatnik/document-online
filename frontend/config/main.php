@@ -19,6 +19,10 @@ return [
         'catalog' => [
             'class' => 'frontend\modules\catalog\Module',
         ],
+        'settings' => [
+            'class' => 'pheme\settings\Module',
+            'sourceLanguage' => 'en'
+        ],
     ],
     'components' => [
         'request' => [
@@ -51,6 +55,10 @@ return [
             'showScriptName' => false,
             'rules' => [
             ],
+        ],
+        
+        'settings' => [
+            'class' => 'pheme\settings\components\Settings'
         ],
         
     ],

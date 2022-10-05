@@ -55,6 +55,12 @@ class SiteController extends Controller
     /**
      * {@inheritdoc}
      */
+    
+    public function beforeAction($action)
+   {
+      Yii::$app->getModule('settings')->init(); // make sure this module is init first
+      return parent::beforeAction($action);
+   }
     public function actions()
     {
         return [
@@ -64,6 +70,13 @@ class SiteController extends Controller
             'captcha' => [
                 'class' => 'yii\captcha\CaptchaAction',
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
+            ],
+             'site-settings' => [
+                'class' => 'pheme\settings\SettingsAction',
+                'modelClass' => 'frontend\models\Site',
+                //'scenario' => 'site',	// Change if you want to re-use the model for multiple setting form.
+                //'section' => 'site', // By default use modelClass formname value 
+                'viewName' => 'site-settings'	// The form we need to render
             ],
         ];
     }
@@ -256,4 +269,5 @@ class SiteController extends Controller
             'model' => $model
         ]);
     }
-}
+    
+ }

@@ -39,21 +39,24 @@ class CompanyController extends Controller
      */
     public function actionIndex()
     {
-        if ($this->request->isAjax) {  
-            $models = Company::find()->all();
-            return $this->render('list', [
-                'models' => $models,
-
-            ]);
-        } else {
-            $searchModel = new CompanySearch();
-            $dataProvider = $searchModel->search($this->request->queryParams);
-
-            return $this->render('index', [
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider,
-            ]);
-        }
+        Yii::$app->response->format = yii\web\Response::FORMAT_JSON;
+        
+        return  Company::find()->all();
+//        if ($this->request->isAjax) {  
+//            $models = Company::find()->all();
+//            return $this->render('list', [
+//                'models' => $models,
+//
+//            ]);
+//        } else {
+//            $searchModel = new CompanySearch();
+//            $dataProvider = $searchModel->search($this->request->queryParams);
+//
+//            return $this->render('index', [
+//                'searchModel' => $searchModel,
+//                'dataProvider' => $dataProvider,
+//            ]);
+//        }
     }
     
     

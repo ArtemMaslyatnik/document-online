@@ -2,7 +2,8 @@
 
 namespace frontend\modules\catalog\models;
 
-use Yii;
+use yii\behaviors\TimestampBehavior;
+
 
 /**
  * This is the model class for table "contract".
@@ -25,19 +26,32 @@ class Contract extends \yii\db\ActiveRecord
     {
         return 'contract';
     }
+    
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::className(),
+        ];
+    }
 
     /**
      * {@inheritdoc}
      */
-    public function rules()
-    {
-        return [
-            [['date', 'number', 'company_id', 'counterparty_id', 'type_contract_id', 'created_at', 'updated_at'], 'required'],
-            [['date'], 'safe'],
-            [['company_id', 'counterparty_id', 'type_contract_id', 'created_at', 'updated_at'], 'integer'],
-            [['number'], 'string', 'max' => 128],
-        ];
-    }
+//    public function rules()
+//    {
+//        return [
+//            [['date', 'number', 'company_id', 'counterparty_id', 'type_contract_id', 'created_at', 'updated_at'], 'required'],
+//            [['date'], 'safe'],
+//            [['company_id', 'counterparty_id', 'type_contract_id', 'created_at', 'updated_at'], 'integer'],
+//            [['number'], 'string', 'max' => 128],
+//        ];
+//    }
+    
+
 
     /**
      * {@inheritdoc}
@@ -47,6 +61,7 @@ class Contract extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'date' => 'Date',
+            'user' => 'User ID',
             'number' => 'Number',
             'company_id' => 'Company ID',
             'counterparty_id' => 'Counterparty ID',
@@ -55,4 +70,5 @@ class Contract extends \yii\db\ActiveRecord
             'updated_at' => 'Updated At',
         ];
     }
+    
 }
