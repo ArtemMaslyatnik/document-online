@@ -27,6 +27,9 @@ return [
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-frontend',
+            'parsers' => [
+                'application/json' => 'yii\web\JsonParser',
+            ],
         ],
         'user' => [
             'identityClass' => 'common\models\User',
@@ -51,16 +54,31 @@ return [
         ],
         
         'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
-            'rules' => [
-            ],
-        ],
-        
+                'enablePrettyUrl' => true,
+                'enableStrictParsing' => true,
+                'showScriptName' => false,
+                'rules' => [
+                    ['class' => 'yii\rest\UrlRule', 'controller' => ['catalog/user']],
+                    ['class' => 'yii\rest\UrlRule', 'controller' => ['catalog/company']],
+                ],
+            
+                ],
         'settings' => [
             'class' => 'pheme\settings\components\Settings'
         ],
-        
+        'response' => [
+            'class' => 'yii\web\Response',
+            'on beforeSend' => function ($event) {
+                $response = $event->sender;
+                if ($response->data !== null && Yii::$app->request->get('suppress_response_code')) {
+                    $response->data = [
+                        'success' => $response->isSuccessful,
+                        'data' => $response->data,
+                    ];
+                    $response->statusCode = 200;
+                }
+            },
+        ],
     ],
     'params' => $params,
 ];

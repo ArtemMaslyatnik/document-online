@@ -4,6 +4,8 @@ namespace frontend\modules\catalog\models;
   
 use yii\behaviors\BlameableBehavior;
 use yii\db\ActiveRecord;
+use frontend\modules\catalog\resources\UserResource;
+
 
 /**
  * This is the model class for table "company".
@@ -45,20 +47,20 @@ class Company extends ActiveRecord
     }
 
 
-
-public function behaviors()
-{
-    return [
-        [
-            'class' => BlameableBehavior::class,
-            'createdByAttribute' => 'user_id',
-            'updatedByAttribute' => false,
-            'attributes' => [
-                ActiveRecord::EVENT_BEFORE_VALIDATE => ['user_id'] // If usr_id is required
-            ]
-        ],
-    ];
-}
+//responsibility user on front
+//public function behaviors()
+//{
+//    return [
+//        [
+//            //'class' => BlameableBehavior::class,
+//            //'createdByAttribute' => 'user_id',
+//            //'updatedByAttribute' => false,
+//            //'attributes' => [
+//            //    ActiveRecord::EVENT_BEFORE_VALIDATE => ['user_id'] // If usr_id is required
+//            //]
+//        ],
+//    ];
+//}
     /**
      * {@inheritdoc}
      */
@@ -66,6 +68,7 @@ public function behaviors()
     {
         return [
             'id' => 'ID',
+            'usre_id' => 'User Id',
             'full_name' => 'Full Name',
             'name' => 'Name',
             'bank' => 'Bank',
@@ -73,5 +76,11 @@ public function behaviors()
             'edrpou' => 'Edrpou',
             'ipn' => 'Ipn',
         ];
+    }
+    
+    
+    public function getUser()
+    {
+        return $this->hasOne(UserResource::className(), ['id' => 'user_id']);
     }
 }

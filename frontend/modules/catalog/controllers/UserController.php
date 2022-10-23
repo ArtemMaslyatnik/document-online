@@ -2,17 +2,17 @@
 
 namespace frontend\modules\catalog\controllers;
 
-use yii\filters\Cors;
+
 use yii\rest\ActiveController;
-
-
+use yii\filters\Cors;
 /**
  * CompanyController implements the CRUD actions for Company model.
  */
-class CompanyController extends ActiveController
+
+class UserController extends ActiveController
 {
-    public $modelClass = '\frontend\modules\catalog\resources\CompanyResource';
-    /**
+    public $modelClass = '\frontend\modules\catalog\resources\UserResource';
+        /**
      * @inheritDoc
      */
     public function behaviors()
