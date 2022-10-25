@@ -62,17 +62,17 @@ class Counterparty extends \yii\db\ActiveRecord
         ];
     }
     
-    public function behaviors()
-{
-    return [
-        [
-            'class' => BlameableBehavior::class,
-            'createdByAttribute' => 'user_id',
-            'updatedByAttribute' => false,
-            'attributes' => [
-                ActiveRecord::EVENT_BEFORE_VALIDATE => ['user_id'] // If usr_id is required
-            ]
-        ],
-    ];
-}
+//    public function behaviors()
+//{
+//    return [
+//        [
+//            'class' => BlameableBehavior::class,
+//            'createdByAttribute' => 'user_id',
+//            'updatedByAttribute' => false,
+//            'attributes' => [
+//                ActiveRecord::EVENT_BEFORE_VALIDATE => ['user_id'] // If usr_id is required
+//            ]
+//        ],
+//    ];
+//}
 }

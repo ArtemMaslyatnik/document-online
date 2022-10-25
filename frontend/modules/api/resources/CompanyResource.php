@@ -1,7 +1,7 @@
 <?php
 
 /** Company **/
-namespace frontend\modules\api\rsources;
+namespace frontend\modules\api\resources;
 
 use frontend\modules\catalog\models\Company;
 

@@ -60,6 +60,7 @@ return [
                 'rules' => [
                     ['class' => 'yii\rest\UrlRule', 'controller' => ['catalog/user']],
                     ['class' => 'yii\rest\UrlRule', 'controller' => ['catalog/company']],
+                    ['class' => 'yii\rest\UrlRule', 'controller' => ['catalog/counterparty']],
                 ],
             
                 ],
