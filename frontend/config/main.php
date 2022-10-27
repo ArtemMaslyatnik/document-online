@@ -19,6 +19,9 @@ return [
         'catalog' => [
             'class' => 'frontend\modules\catalog\Module',
         ],
+        'enumeration' => [
+            'class' => 'frontend\modules\enumeration\Module',
+        ],
         'settings' => [
             'class' => 'pheme\settings\Module',
             'sourceLanguage' => 'en'
@@ -61,25 +64,27 @@ return [
                     ['class' => 'yii\rest\UrlRule', 'controller' => ['catalog/user']],
                     ['class' => 'yii\rest\UrlRule', 'controller' => ['catalog/company']],
                     ['class' => 'yii\rest\UrlRule', 'controller' => ['catalog/counterparty']],
+                    ['class' => 'yii\rest\UrlRule', 'controller' => ['catalog/contract']],
+                    ['class' => 'yii\rest\UrlRule', 'controller' => ['enumeration/type-contract']],
                 ],
             
                 ],
         'settings' => [
             'class' => 'pheme\settings\components\Settings'
         ],
-        'response' => [
-            'class' => 'yii\web\Response',
-            'on beforeSend' => function ($event) {
-                $response = $event->sender;
-                if ($response->data !== null && Yii::$app->request->get('suppress_response_code')) {
-                    $response->data = [
-                        'success' => $response->isSuccessful,
-                        'data' => $response->data,
-                    ];
-                    $response->statusCode = 200;
-                }
-            },
-        ],
+//        'response' => [
+//            'class' => 'yii\web\Response',
+//            'on beforeSend' => function ($event) {
+//                $response = $event->sender;
+//                if ($response->data !== null && Yii::$app->request->get('suppress_response_code')) {
+//                    $response->data = [
+//                        'success' => $response->isSuccessful,
+//                        'data' => $response->data,
+//                    ];
+//                    $response->statusCode = 200;
+//                }
+//            },
+//        ],
     ],
     'params' => $params,
 ];

@@ -1,15 +1,17 @@
 <?php
 
-namespace frontend\modules\catalog\controllers;
+namespace frontend\modules\enumeration\controllers;
 
 use yii\filters\Cors;
 use yii\rest\ActiveController;
+
+
 /**
- * ContractController implements the CRUD actions for Contract model.
+ * CompanyController implements the CRUD actions for Company model.
  */
-class ContractController extends ActiveController
+class TypeContractController extends ActiveController
 {
-    public $modelClass = '\frontend\modules\catalog\resources\ContractResource';
+    public $modelClass = '\frontend\modules\enumeration\resources\TypeContractResource';
     /**
      * @inheritDoc
      */
@@ -23,5 +25,5 @@ class ContractController extends ActiveController
                 ],
             ],
         );
-    }   
+    }
 }

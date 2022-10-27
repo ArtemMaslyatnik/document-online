@@ -28,28 +28,28 @@ class Contract extends \yii\db\ActiveRecord
     }
     
     
-    /**
-     * {@inheritdoc}
-     */
-    public function behaviors()
-    {
-        return [
-            TimestampBehavior::className(),
-        ];
-    }
+//    /**
+//     * {@inheritdoc}
+//     */
+//    public function behaviors()
+//    {
+//        return [
+//            TimestampBehavior::className(),
+//        ];
+//    }
 
     /**
      * {@inheritdoc}
      */
-//    public function rules()
-//    {
-//        return [
-//            [['date', 'number', 'company_id', 'counterparty_id', 'type_contract_id', 'created_at', 'updated_at'], 'required'],
-//            [['date'], 'safe'],
-//            [['company_id', 'counterparty_id', 'type_contract_id', 'created_at', 'updated_at'], 'integer'],
-//            [['number'], 'string', 'max' => 128],
-//        ];
-//    }
+    public function rules()
+    {
+        return [
+            [['date', 'number', 'company_id', 'counterparty_id', 'type_contract_id', 'created_at', 'updated_at'], 'required'],
+            [['date'], 'safe'],
+            [['company_id', 'counterparty_id', 'type_contract_id', 'created_at', 'updated_at'], 'integer'],
+            [['number'], 'string', 'max' => 128],
+        ];
+    }
     
 
 

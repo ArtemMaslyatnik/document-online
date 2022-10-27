@@ -6,7 +6,7 @@ namespace frontend\modules\catalog\resources;
 
 
 
-class CounterpartyResource extends \frontend\modules\catalog\models\Counterparty
+class ContractResource extends \frontend\modules\catalog\models\Contract
 {
-    //public $modelClass = 
+    
 }
