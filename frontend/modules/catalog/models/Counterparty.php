@@ -2,9 +2,10 @@
 
 namespace frontend\modules\catalog\models;
 
-use yii\behaviors\BlameableBehavior;
-use yii\db\ActiveRecord;
 
+use yii\db\ActiveRecord;
+use frontend\modules\catalog\resources\UserResource;
+use frontend\modules\catalog\resources\ContractResource;
 /**
  * This is the model class for table "counterparty".
  *
@@ -18,7 +19,7 @@ use yii\db\ActiveRecord;
  * @property string $edrpou
  * @property string|null $ipn
  */
-class Counterparty extends \yii\db\ActiveRecord
+class Counterparty extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -75,4 +76,15 @@ class Counterparty extends \yii\db\ActiveRecord
 //        ],
 //    ];
 //}
+    
+    
+    public function getUser()
+    {
+        return $this->hasOne(UserResource::className(), ['id' => 'user_id']);
+    }
+    
+    public function getContract()
+    {
+        return $this->hasOne(ContractResource::className(), ['id' => 'contract_id']);
+    }
 }
