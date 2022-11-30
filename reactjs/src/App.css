@@ -1,0 +1,10 @@
+@import '~antd/dist/antd.css';
+
+.h100 {
+    height: calc(100vh - 64px);
+}
+
+.ant-layout-header{
+    background-color: white;
+
+}
