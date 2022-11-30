@@ -67,7 +67,7 @@ class DefaultController extends Controller {
 
     public function actionCreate() {
         $sum = 0;
-        $model = new SalesInvoiceForm(Yii::$app->user->identity);
+        $model = new SalesInvoiceForm(Yii::$app->user);
         $modelsSIP = [new SalesInvoiceProduct()];
         $view = 'create';
         if ($this->request->isPost && $model->load(Yii::$app->request->post())) {

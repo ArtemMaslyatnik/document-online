@@ -3,6 +3,10 @@
 namespace frontend\modules\catalog\models;
 
 use yii\behaviors\TimestampBehavior;
+use frontend\modules\catalog\resources\UserResource;
+use frontend\modules\catalog\resources\CompanyResource;
+use frontend\modules\catalog\resources\CounterpartyResource;
+use frontend\modules\enumeration\resources\TypeContractResource;
 
 
 /**
@@ -69,6 +73,26 @@ class Contract extends \yii\db\ActiveRecord
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
+    }
+    
+    public function getUser()
+    {
+        return $this->hasOne(UserResource::className(), ['id' => 'user_id']);
+    }
+    
+    public function getCompany()
+    {
+        return $this->hasOne(CompanyResource::className(), ['id' => 'company_id']);
+    }
+    
+    public function getCounterparty()
+    {
+        return $this->hasOne(CounterpartyResource::className(), ['id' => 'counterparty_id']);
+    }
+    
+    public function getTypeContract()
+    {
+        return $this->hasOne(TypeContractResource::className(), ['id' => 'type_contract_id']);
     }
     
 }

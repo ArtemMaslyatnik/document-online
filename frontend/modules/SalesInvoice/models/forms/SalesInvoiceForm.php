@@ -6,7 +6,10 @@ use yii\base\Model;
 use frontend\modules\SalesInvoice\models\SalesInvoice;
 use common\models\User;
 use frontend\modules\catalog\models\Company;
+use frontend\modules\catalog\models\Counterparty;
+use frontend\modules\catalog\models\Contract;
 use yii\helpers\ArrayHelper;
+
 
 class SalesInvoiceForm extends Model {
     
@@ -48,7 +51,7 @@ class SalesInvoiceForm extends Model {
     /**
      * @param User $user
      */
-    public function __construct(User $user) {
+    public function __construct($user) {
         $this->user = $user;
     } 
     
@@ -82,6 +85,18 @@ class SalesInvoiceForm extends Model {
     public function getСompanyList() {
 
         return ArrayHelper::map(Company::find()->all(), 'id', 'name');
+
+    }  
+    
+    public function getСounterpartyList() {
+
+        return ArrayHelper::map(Counterparty::find()->all(), 'id', 'name');
+
+    }  
+    
+    public function getContractList() {
+
+        return ArrayHelper::map(Contract::find()->all(), 'id', 'name');
 
     }  
  

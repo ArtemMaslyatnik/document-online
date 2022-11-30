@@ -14,11 +14,7 @@ class UserResource extends \frontend\modules\catalog\models\User
     {
         return [
             'id', 
-            'username',
-            'value' => function ($model) {
-                return $model->username;
-            },
-            'link' => function ($model) {
+            'name' => function ($model) {
                 return $model->username;
             },
         ];

@@ -18,7 +18,7 @@ $this->title = 'document-online';
     <?php $form = ActiveForm::begin(); ?>
     <h1>створити Видаткову накладну</h1>
     <!-- ////////////////////////////////////////////////////////////////Modal /////////////////////////////////////-->
-    <div class="modal fade bd-example-modal-lg" id="modal-list-company" tabindex="-1" role="dialog" aria-labelledby="buton-add-company-Label" aria-hidden="true">
+    <div class="modal fade bd-example-modal-lg" id="modal-list" tabindex="-1" role="dialog" aria-labelledby="buton-add-company-Label" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-body">
@@ -75,7 +75,19 @@ $this->title = 'document-online';
         <br>
         <div class="row">
             <label class="col-2"><strong>Покупець:</strong></label>
-            <div class="col-10"><?php echo $form->field($model, 'counterparty')->textInput(['placeholder' => "ООО Покупець"])->label(false); ?></div>
+            <div class="col-10"><?php echo $form->field($model, 'counterparty')->widget(Select2::classname(), [
+                                    'data' => $model->getСounterpartyList(),
+                                    'options' => ['placeholder' => 'Покупець ...'],
+                                    'pluginOptions' => [
+                                        'allowClear' => true
+                                    ],
+                                    'addon' => [
+                                        'append' => [
+                                            'content' => Html::button('+', ['id' => 'button-list-counterparty','class' => 'btn btn-outline-success',]),
+                                            'asButton' => true
+                                        ]
+                                    ],
+                                ])->label(false);?></div>
         </div>
         <div class="row">
             <label class="col-2"></label> 
@@ -83,8 +95,20 @@ $this->title = 'document-online';
           </div>
         <br>
         <div class="row">
-            <label class="col-2"><strong>Договор:</strong></label>            
-            <div class="col-10"><?php echo $form->field($model, 'contract')->label(false); ?></div>
+            <label class="col-2"><strong>Договор:</strong></label>
+            <div class="col-10"><?php echo $form->field($model, 'contract')->widget(Select2::classname(), [
+                                    'data' => $model->getContractList(),
+                                    'options' => ['placeholder' => 'Договор ...'],
+                                    'pluginOptions' => [
+                                        'allowClear' => true
+                                    ],
+                                    'addon' => [
+                                        'append' => [
+                                            'content' => Html::button('+', ['id' => 'button-list-contract','class' => 'btn btn-outline-success',]),
+                                            'asButton' => true
+                                        ]
+                                    ],
+                                ])->label(false);?></div>
         </div>
         <!-- \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ -->
         <!-- table 
