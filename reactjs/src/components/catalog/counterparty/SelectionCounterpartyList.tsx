@@ -1,24 +1,25 @@
-import type { InputRef } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
+import type { InputRef } from 'antd';
 import { Button, Input, Space, Table } from 'antd';
 import type { ColumnsType, ColumnType } from 'antd/es/table';
 import type { FilterConfirmProps } from 'antd/es/table/interface';
 import React, { useRef, useState, FC } from 'react';
 import Highlighter from "react-highlight-words";
-import {IContract} from "../../../models/catalog/IContract";
-import {NavLink} from "react-router-dom";
-import {RouteNames, RouteNamesCRUD} from "../../../router";
+import {ICounterparty} from "../../../models/catalog/ICounterparty";
+import {RouteNamesCRUD} from "../../../router";
 
-interface ListProps {
-    data: IContract[],
-    handleDelete: (id: string) => void,
+
+
+interface SelectProps {
+    data: ICounterparty[],
+    handleSelect: (id: string) => void,
 }
+type DataIndex = keyof ICounterparty;
 
-type DataIndex = keyof IContract;
 
-const ContractList: FC <ListProps> = (props) => {
+const SelectionCounterpartyList: FC <SelectProps> = (props) => {
 
-    const data: IContract[] = props.data;
+    const data: ICounterparty[] = props.data;
 
     const [searchText, setSearchText] = useState('');
     const [searchedColumn, setSearchedColumn] = useState('');
@@ -39,7 +40,7 @@ const ContractList: FC <ListProps> = (props) => {
         setSearchText('');
     };
 
-    const getColumnSearchProps = (dataIndex: DataIndex): ColumnType<IContract> => ({
+    const getColumnSearchProps = (dataIndex: DataIndex): ColumnType<ICounterparty> => ({
         filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, close }) => (
             <div style={{ padding: 8 }} onKeyDown={e => e.stopPropagation()}>
                 <Input
@@ -116,23 +117,15 @@ const ContractList: FC <ListProps> = (props) => {
             ),
     });
 
-    const columns: ColumnsType<IContract> = [
+    const columns: ColumnsType<ICounterparty> = [
         {
             title: 'Code',
             dataIndex: 'id',
             key: 'id',
-            width: '10%',
+            width: '30%',
             ...getColumnSearchProps('id'),
         },
-        {
-            title: 'Date',
-            dataIndex: 'date',
-            key: 'date',
-            width: '20%',
-            ...getColumnSearchProps('date'),
-            sorter: (a, b) => a.date.length - b.date.length,
-            sortDirections: ['descend', 'ascend'],
-        },
+
         {
             title: 'Name',
             dataIndex: 'name',
@@ -140,52 +133,25 @@ const ContractList: FC <ListProps> = (props) => {
             width: '30%',
             ...getColumnSearchProps('name'),
         },
-        {
-            title: 'Counterparty',
-            dataIndex: 'counterparty_name',
-            key: 'counterparty_name',
-            ...getColumnSearchProps('counterparty_name'),
-            sorter: (a, b) => a.counterparty_id.length - b.counterparty_id.length,
-            sortDirections: ['descend', 'ascend'],
-        },
-        {
-            title: 'Company',
-            dataIndex: 'company_name',
-            key: 'company_name',
-            ...getColumnSearchProps('company_name'),
-            sorter: (a, b) => a.counterparty_id.length - b.counterparty_id.length,
-            sortDirections: ['descend', 'ascend'],
-        },
-        {
-            title: 'Type contract',
-            dataIndex: 'type_contract_name',
-            key: 'type_contract_name',
-            ...getColumnSearchProps('type_contract_name'),
-            sorter: (a, b) => a.counterparty_id.length - b.counterparty_id.length,
-            sortDirections: ['descend', 'ascend'],
-        },
 
         {
             title: 'Action',
             key: 'action',
             render: (_, record) => (
                 <Space size="middle">
-                    <NavLink
-                        to={RouteNames.CONTRACT + '/' + record.id}
-                    >
-                        {RouteNamesCRUD.EDITE}
-                    </NavLink>
                     <Button
-                        onClick={()=> props.handleDelete(record.id)}
-                        danger
-                    >
-                        {RouteNamesCRUD.DELETE}
+                        onClick={()=> props.handleSelect(record.id)}
+                        type="primary"
+                        ghost
+                        >
+                        {RouteNamesCRUD.SELECT}
                     </Button>
                 </Space>
             ),
         }
     ];
+
     return <Table columns={columns} dataSource={data} />;
 };
 
-export default ContractList;
+export default SelectionCounterpartyList;

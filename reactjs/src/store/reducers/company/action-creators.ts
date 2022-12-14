@@ -3,7 +3,7 @@ import {ICompany} from "../../../models/catalog/ICompany";
 import {AppDispatch} from "../../index";
 import CompanyService from "../../../api/catalog/CompanyService";
 
-import company from "../../../pages/Company";
+import company from "../../../pages/catalog/company/Company";
 import {RouteNamesCRUD} from "../../../router";
 
 

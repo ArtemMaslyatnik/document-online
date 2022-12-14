@@ -1,9 +1,7 @@
 import React, {FC, useEffect} from 'react';
 import {useTypedSelector} from "../../../hooks/useTypedSelector";
 import {useActions} from "../../../hooks/useActions";
-import {Layout, Modal, Row} from "antd";
-import {NavLink} from "react-router-dom";
-import {RouteNames, RouteNamesCRUD} from "../../../router";
+import {Layout, Modal} from "antd";
 import ContractList from "../../../components/catalog/contract/ContractList";
 
 
@@ -32,17 +30,8 @@ const Contract: FC = () => {
 
     }
 
-
-
      return (
             <Layout>
-                <Row>
-                    <NavLink
-                        to={RouteNames.CONTRACT + '/' + RouteNamesCRUD.CREATE}
-                    >
-                        {RouteNamesCRUD.ADD}
-                    </NavLink>
-                </Row>
                 <ContractList
                     data={contracts}
                     handleDelete={deleteItem}

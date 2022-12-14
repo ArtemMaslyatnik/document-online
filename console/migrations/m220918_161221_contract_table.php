@@ -16,7 +16,7 @@ class m220918_161221_contract_table extends Migration
             'id' => $this->primaryKey()->notNull(),
             'user_id' => $this->integer(11)->notNull(),
             'date' => $this->dateTime()->notNull(),
-            'number' => $this->string(128)->notNull(),
+            'name' => $this->string(128)->notNull(),
             'company_id' => $this->integer(11)->notNull(),
             'counterparty_id' => $this->integer(11)->notNull(),
             'type_contract_id' => $this->integer(11)->notNull(),

@@ -1,13 +1,13 @@
 import React, {FC, useEffect, useState} from 'react';
 import {Button, Col, Form, Input, Layout, Modal, Row, Select} from "antd";
-import {rules} from "../utils/rules";
-import {useTypedSelector} from "../hooks/useTypedSelector";
-import {ICompany} from "../models/catalog/ICompany";
-import {useActions} from "../hooks/useActions";
+import {rules} from "../../../utils/rules";
+import {useTypedSelector} from "../../../hooks/useTypedSelector";
+import {ICompany} from "../../../models/catalog/ICompany";
+import {useActions} from "../../../hooks/useActions";
 import {useHistory, useParams} from "react-router-dom";
-import {RouteNames, RouteNamesCRUD} from "../router";
-import SelectUserList from "../components/SelectUserList";
-import AddCompanyForm from "../components/AddCompanyForm";
+import {ElementsInterface, RouteNames, RouteNamesCRUD} from "../../../router";
+import SelectUserList from "../../../components/catalog/user/SelectUserList";
+
 
 type CompanyParams = {
     id: string;
@@ -28,14 +28,14 @@ const CompanyItem: FC = () => {
     const [open, setOpen] = useState(false);
     const [openAF, setOpenAF] = useState(false);
 
-    const {deleteCompany, fetchUsers, updateCompany, createCompany } = useActions();
+    const {fetchUsers, updateCompany, createCompany } = useActions();
     const {id}  = useParams<CompanyParams>();
     const history = useHistory();
     const {users} = useTypedSelector(state => state.user);
 
     const company = CompanySelect(id);
 
-    const [companyE, setCompany] = useState<ICompany>(company);
+    const [newItem, setCompany] = useState<ICompany>(company);
 
     const goHome = () => {
         history.push(RouteNames.COMPANIES);
@@ -51,7 +51,7 @@ const CompanyItem: FC = () => {
         goHome();
     }
     const SelectItem = (id: string) =>{
-        setCompany({...companyE, user_id: id})
+        setCompany({...newItem, user_id: id})
         setOpen(false);
     }
 
@@ -63,17 +63,18 @@ const CompanyItem: FC = () => {
 
     return (
         <Layout>
+
             <Form
                 onFinish={submitForm}
                   fields={[
-                    {name: ["id"], value: companyE.id},
-                    {name: ["full_name"], value: companyE.full_name},
-                    {name: ["name"], value: companyE.name},
-                    {name: ["bank"], value: companyE.bank},
-                    {name: ["address"], value: companyE.address},
-                    {name: ["edrpou"], value: companyE.edrpou},
-                    {name: ["ipn"], value: companyE.ipn},
-                    {name: ["user_id"], value: companyE.user_id},
+                    {name: ["id"], value: newItem.id},
+                    {name: ["full_name"], value: newItem.full_name},
+                    {name: ["name"], value: newItem.name},
+                    {name: ["bank"], value: newItem.bank},
+                    {name: ["address"], value: newItem.address},
+                    {name: ["edrpou"], value: newItem.edrpou},
+                    {name: ["ipn"], value: newItem.ipn},
+                    {name: ["user_id"], value: newItem.user_id},
                 ]}
             >
                  <Row >
@@ -82,7 +83,7 @@ const CompanyItem: FC = () => {
                      >
                          <Form.Item>
                              <Button onClick={goHome}>
-                                 X
+                                 {ElementsInterface.CLOSED}
                              </Button>
                          </Form.Item>
                      </Col>
@@ -94,7 +95,7 @@ const CompanyItem: FC = () => {
                 >
                     <Input
                         disabled
-                        value={companyE.id}
+                        value={newItem.id}
                     />
                 </Form.Item>
                 <Form.Item
@@ -103,8 +104,8 @@ const CompanyItem: FC = () => {
                     rules={[rules.required()]}
                 >
                     <Input
-                        onChange={event => setCompany({...companyE, full_name: event.target.value})}
-                        value={companyE.full_name}
+                        onChange={event => setCompany({...newItem, full_name: event.target.value})}
+                        value={newItem.full_name}
                     />
                 </Form.Item>
                 <Form.Item
@@ -113,8 +114,8 @@ const CompanyItem: FC = () => {
                     rules={[rules.required()]}
                 >
                     <Input
-                        onChange={event => setCompany({...companyE, name: event.target.value})}
-                        value={companyE.name}
+                        onChange={event => setCompany({...newItem, name: event.target.value})}
+                        value={newItem.name}
                     />
                 </Form.Item>
                 <Form.Item
@@ -123,8 +124,8 @@ const CompanyItem: FC = () => {
                     rules={[rules.required()]}
                 >
                     <Input
-                        onChange={event => setCompany({...companyE, bank: event.target.value})}
-                        value={companyE.bank}
+                        onChange={event => setCompany({...newItem, bank: event.target.value})}
+                        value={newItem.bank}
                     />
                 </Form.Item>
                 <Form.Item
@@ -133,8 +134,8 @@ const CompanyItem: FC = () => {
                     rules={[rules.required()]}
                 >
                     <Input
-                        onChange={event => setCompany({...companyE, address: event.target.value})}
-                        value={companyE.address}
+                        onChange={event => setCompany({...newItem, address: event.target.value})}
+                        value={newItem.address}
                     />
                 </Form.Item>
                 <Form.Item
@@ -143,8 +144,8 @@ const CompanyItem: FC = () => {
                     rules={[rules.required()]}
                 >
                     <Input
-                        onChange={event => setCompany({...companyE, edrpou: event.target.value})}
-                        value={companyE.edrpou}
+                        onChange={event => setCompany({...newItem, edrpou: event.target.value})}
+                        value={newItem.edrpou}
                     />
                 </Form.Item>
                 <Form.Item
@@ -153,8 +154,8 @@ const CompanyItem: FC = () => {
                     rules={[rules.required()]}
                 >
                     <Input
-                        onChange={event => setCompany({...companyE, ipn: event.target.value})}
-                        value={companyE.ipn}
+                        onChange={event => setCompany({...newItem, ipn: event.target.value})}
+                        value={newItem.ipn}
                     />
                 </Form.Item>
                 <Row>
@@ -164,27 +165,32 @@ const CompanyItem: FC = () => {
                             name="user_id"
                             rules={[rules.required()]}
                         >
-                            <Select onChange={(user_id: string) => setCompany({...companyE, user_id})}>
-                                {users.map(user =>
-                                    <Select.Option key={user.id} value={user.id}>
-                                        {user.name}
-                                    </Select.Option>
-                                )}
-                            </Select>
+                            <Select
+                                showSearch
+                                placeholder="Select a user"
+                                optionFilterProp="children"
+                                fieldNames={{ label: 'name', value: 'id', options: 'options' }}
+                                onChange={(user_id: string) => setCompany({...newItem, user_id})}
+                                onSearch={(user_id: string) => setCompany({...newItem, user_id})}
+                                filterOption={(input, option) =>
+                                    (option?.name ?? '').toLowerCase().includes(input.toLowerCase())
+                                }
+                                options={users}
+                            />
                         </Form.Item>
                     </Col>
                     <Col span={2}>
                         <Button
                             onClick={() => setOpen(true)}
                         >
-                            ...
+                            {ElementsInterface.OPEN_LIST}
                         </Button>
                     </Col>
                 </Row>
                 <Row justify="end">
                     <Form.Item>
                         <Button type="primary" htmlType="submit">
-                            Save
+                            {RouteNamesCRUD.SAVE}
                         </Button>
 
                     </Form.Item>
@@ -215,12 +221,6 @@ const CompanyItem: FC = () => {
                 footer={null}
                 onCancel={() => setOpenAF(false)}
             >
-                <AddCompanyForm
-                    company={company}
-                    users={users}
-                    submit={addNewCompany}
-                    open={openAF}
-                />
             </Modal>
         </Layout>
     );

@@ -4,12 +4,13 @@ namespace frontend\modules\catalog\controllers;
 
 use yii\filters\Cors;
 use yii\rest\ActiveController;
+
 /**
- * ContractController implements the CRUD actions for Contract model.
+ * CounterpartyController implements the CRUD actions for Counterparty model.
  */
-class ContractController extends ActiveController
+class CounterpartyContractController extends ActiveController
 {
-    public $modelClass = '\frontend\modules\catalog\resources\ContractResource';
+        public $modelClass = '\frontend\modules\catalog\resources\CounterpartyContractResource';
     /**
      * @inheritDoc
      */
@@ -21,7 +22,7 @@ class ContractController extends ActiveController
                 'cors' => [
                     'class' => Cors::className(),
                 ],
-            ]
+            ],
         );
-    }   
+    }
 }

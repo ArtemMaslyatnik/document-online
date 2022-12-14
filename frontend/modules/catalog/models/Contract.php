@@ -14,7 +14,7 @@ use frontend\modules\enumeration\resources\TypeContractResource;
  *
  * @property int $id
  * @property string $date
- * @property string $number
+ * @property string $name
  * @property int $company_id
  * @property int $counterparty_id
  * @property int $type_contract_id
@@ -32,15 +32,15 @@ class Contract extends \yii\db\ActiveRecord
     }
     
     
-//    /**
-//     * {@inheritdoc}
-//     */
-//    public function behaviors()
-//    {
-//        return [
-//            TimestampBehavior::className(),
-//        ];
-//    }
+    /**
+     * {@inheritdoc}
+     */
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::className(),
+        ];
+    }
 
     /**
      * {@inheritdoc}
@@ -48,14 +48,20 @@ class Contract extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['date', 'number', 'company_id', 'counterparty_id', 'type_contract_id', 'created_at', 'updated_at'], 'required'],
+            [['user_id', 'date', 'name', 'company_id', 'counterparty_id', 'type_contract_id'], 'required'],
             [['date'], 'safe'],
-            [['company_id', 'counterparty_id', 'type_contract_id', 'created_at', 'updated_at'], 'integer'],
-            [['number'], 'string', 'max' => 128],
+            [['company_id', 'counterparty_id', 'type_contract_id'], 'integer'],
+            [['name'], 'string', 'max' => 128],
         ];
     }
-    
 
+
+    public function afterSave($insert, $changedAttributes) {
+       $model =  new CounterpartyContract();
+       $model->contract_id = $this->id;
+       $model->counterparty_id = $this->counterparty_id;
+       $model->save();
+    }
 
     /**
      * {@inheritdoc}
@@ -66,7 +72,7 @@ class Contract extends \yii\db\ActiveRecord
             'id' => 'ID',
             'date' => 'Date',
             'user' => 'User ID',
-            'number' => 'Number',
+            'name' => 'Name',
             'company_id' => 'Company ID',
             'counterparty_id' => 'Counterparty ID',
             'type_contract_id' => 'Type Contract ID',

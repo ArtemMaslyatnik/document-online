@@ -13,9 +13,7 @@ class ContractResource extends \frontend\modules\catalog\models\Contract
         return [
             'id',
             'date',
-            'name' => function ($model) {
-                return $model->number;
-            },
+            'name',
             'counterparty_id',
             'counterparty_name' => function ($model) {
                 return $model->counterparty->name;
@@ -35,9 +33,9 @@ class ContractResource extends \frontend\modules\catalog\models\Contract
 
          ];
     }
-//    public function extraFields()
-//    {
-//        return ['user', 'counterparty', 'company', 'typeContract'];
-//    }
+    public function extraFields()
+    {
+        return ['user', 'counterparty', 'company', 'typeContract'];
+    }
     
 }

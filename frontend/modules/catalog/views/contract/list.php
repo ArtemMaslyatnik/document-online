@@ -31,7 +31,7 @@ use yii\web\JqueryAsset;
                     <?= Html::encode($model->id).'<br>'; ?>
                 </div>
                 <div class="col-lg-9">
-                    <?= Html::a( $model->number, ['#', 'id' => '1'], ['data-kay'=> $model->id, 'onclick'=>'return false','class' => 'insert-link-contract' ]).'<br>'; ?>
+                    <?= Html::a( $model->name, ['#', 'id' => '1'], ['data-kay'=> $model->id, 'onclick'=>'return false','class' => 'insert-link-contract' ]).'<br>'; ?>
                 </div>
             </div>  
         <?php endforeach; ?>

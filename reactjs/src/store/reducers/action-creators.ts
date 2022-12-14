@@ -5,6 +5,7 @@ import {UserActionCreators} from "./user/action-creators";
 import {CounterpartyActionCreators} from "./counterparty/action-creators";
 import {ContractActionCreators} from "./contract/action-creators";
 import {TypeContractActionCreators} from "./enumeration/type-contract/action-creators";
+import {CounterpartyContractActionCreators} from "./counterparty-contract/action-creators";
 
 
 export const allActionCreators = {
@@ -15,4 +16,5 @@ export const allActionCreators = {
     ...CounterpartyActionCreators,
     ...ContractActionCreators,
     ...TypeContractActionCreators,
+    ...CounterpartyContractActionCreators
 }

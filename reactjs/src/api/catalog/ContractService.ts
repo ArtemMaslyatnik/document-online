@@ -10,6 +10,7 @@ export default class ContractService {
 
     static async post(item: IContract): Promise<AxiosResponse<IContract>> {
         return axios.post<IContract>(baseURL + AppStructureConfigElement.CATALOG + RouteNames.CONTRACTS, item)
+
     }
 
     static async getItem(id: string): Promise<AxiosResponse<IContract>> {

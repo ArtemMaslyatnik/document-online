@@ -5,6 +5,7 @@ import user from './user';
 import counterparty from './counterparty';
 import contract from './contract';
 import type_contract from './enumeration/type-contract';
+import counterparty_contract from './counterparty-contract'
 
 export default {
     auth,
@@ -14,4 +15,5 @@ export default {
     counterparty,
     contract,
     type_contract,
+    counterparty_contract,
 }

@@ -1,28 +1,28 @@
-import { SearchOutlined,PlusCircleOutlined } from '@ant-design/icons';
+import { SearchOutlined } from '@ant-design/icons';
 import type { InputRef } from 'antd';
 import { Button, Input, Space, Table } from 'antd';
 import type { ColumnsType, ColumnType } from 'antd/es/table';
 import type { FilterConfirmProps } from 'antd/es/table/interface';
 import React, { useRef, useState, FC } from 'react';
 import Highlighter from "react-highlight-words";
-import {ICompany} from "../models/catalog/ICompany";
-import {RouteNamesCRUD} from "../router";
+import {ICompany} from "../../../models/catalog/ICompany";
+import {RouteNames, RouteNamesCRUD} from "../../../router";
+import {NavLink} from "react-router-dom";
 
 
 
-interface CompanyProps {
-    companies: ICompany[],
+interface ListProps {
+    data: ICompany[],
     handleDelete: (id: string) => void,
-    handleEdite: (id: string) => void,
 }
 
 
 type DataIndex = keyof ICompany;
 
 
-const CompanyList1: FC <CompanyProps> = (props) => {
+const CompanyList: FC <ListProps> = (props) => {
 
-    const data: ICompany[] = props.companies;
+    const data: ICompany[] = props.data;
 
     const [searchText, setSearchText] = useState('');
     const [searchedColumn, setSearchedColumn] = useState('');
@@ -149,15 +149,13 @@ const CompanyList1: FC <CompanyProps> = (props) => {
             key: 'action',
             render: (_, record) => (
                 <Space size="middle">
-                    <Button
-                        onClick={(event)=> props.handleEdite(record.id)}
-                        type="primary"
-                        ghost
-                        >
+                    <NavLink
+                        to={RouteNames.COMPANY + '/' + record.id}
+                    >
                         {RouteNamesCRUD.EDITE}
-                    </Button>
+                    </NavLink>
                     <Button
-                        onClick={(event)=> props.handleDelete(record.id)}
+                        onClick={()=> props.handleDelete(record.id)}
                         danger
                     >
                         {RouteNamesCRUD.DELETE}
@@ -170,4 +168,4 @@ const CompanyList1: FC <CompanyProps> = (props) => {
     return <Table columns={columns} dataSource={data} />;
 };
 
-export default CompanyList1;
+export default CompanyList;

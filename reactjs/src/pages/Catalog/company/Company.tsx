@@ -1,50 +1,56 @@
 import React, {FC, useEffect} from 'react';
+import CompanyList from "../../../components/catalog/company/CompanyList";
 import {useTypedSelector} from "../../../hooks/useTypedSelector";
 import {useActions} from "../../../hooks/useActions";
-import { Layout, Modal, Row} from "antd";
-import {NavLink, } from "react-router-dom";
+import {Layout, Modal, Row} from "antd";
+import {NavLink} from "react-router-dom";
 import {RouteNames, RouteNamesCRUD} from "../../../router";
-import CounterpartyList from "../../../components/catalog/counterparty/CounterpartyList";
 
 
-const Counterparty: FC = () => {
+
+const Company: FC = () => {
 
     const { confirm } = Modal;
 
-    const {fetchCounterparties,  deleteCounterparty } = useActions();
-    const {counterparties} = useTypedSelector(state => state.counterparty);
 
-    useEffect(() => {
-        fetchCounterparties()
+    const {fetchCompanies, deleteCompany } = useActions();
+    const {companies} = useTypedSelector(state => state.company);
+
+     useEffect(() => {
+        fetchCompanies()
     }, [])
+
 
     const deleteItem = (id: string) =>{
         confirm({
             title: 'Do you Want to delete these items?',
             content: 'Some descriptions',
             onOk() {
-                deleteCounterparty(id);
+                deleteCompany(id);
             },
             onCancel() {
             },
         });
 
     }
+
+
      return (
             <Layout>
                 <Row>
                     <NavLink
-                        to={RouteNames.COUNTERPARTY + '/' + RouteNamesCRUD.CREATE}
+                        to={RouteNames.COMPANY + '/' + RouteNamesCRUD.CREATE}
                     >
                         {RouteNamesCRUD.ADD}
                     </NavLink>
                 </Row>
-                <CounterpartyList
-                    data={counterparties}
+                <CompanyList
+                    data={companies}
                     handleDelete={deleteItem}
                 />
-            </Layout>
+             </Layout>
     )
+
 };
 
-export default Counterparty;
+export default Company;

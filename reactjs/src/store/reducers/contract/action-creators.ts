@@ -18,8 +18,8 @@ export const ContractActionCreators = {
     },
     updateContract: (item: IContract, id: string) =>  async (dispatch: AppDispatch) => {
         try {
-            const response = await ContractService.put(item, id);
-            dispatch(ContractActionCreators.setContract(response.data));
+             const response = await ContractService.put(item, id);
+             dispatch(ContractActionCreators.setContract(response.data));
         } catch (e) {
             console.log(e)
         }

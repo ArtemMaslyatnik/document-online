@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'date',
-            'number',
+            'name',
             'company_id',
             'counterparty_id',
             //'type_contract_id',

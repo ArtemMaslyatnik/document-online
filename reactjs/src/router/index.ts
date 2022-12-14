@@ -1,8 +1,8 @@
 import React from "react";
 import Login from "../pages/Login";
 import Event from '../pages/Event';
-import Company from '../pages/Company';
-import CompanyItem from "../pages/CompanyItem";
+import Company from '../pages/catalog/company/Company';
+import CompanyItem from "../pages/catalog/company/CompanyItem";
 import Counterparty from '../pages/catalog/counterparty/Counterparty';
 import CounterpartyItem from "../pages/catalog/counterparty/CounterpartyItem";
 import ContractItem from "../pages/catalog/contract/ContractItem";
@@ -20,6 +20,7 @@ export enum RouteNames {
     COMPANIES = '/companies',
     COMPANY = '/company',
     COUNTERPARTIES = '/counterparties',
+    COUNTERPARTY_CONTRACTS = '/counterparty-contracts',
     COUNTERPARTY = '/counterparty',
     CONTRACTS = '/contracts',
     CONTRACT = '/contract',
@@ -40,6 +41,7 @@ export enum RouteNamesCRUD {
     DELETE = 'delete',
     EDITE = 'edite',
     SAVE = 'save',
+    SELECT = 'select'
 }
 
 export enum ElementsInterface {

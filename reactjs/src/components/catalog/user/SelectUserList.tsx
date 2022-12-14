@@ -5,8 +5,8 @@ import type { ColumnsType, ColumnType } from 'antd/es/table';
 import type { FilterConfirmProps } from 'antd/es/table/interface';
 import React, { useRef, useState, FC } from 'react';
 import Highlighter from "react-highlight-words";
-import {ICompany} from "../models/catalog/ICompany";
-import {IUserShort} from "../models/catalog/IUserShort";
+import {ICompany} from "../../../models/catalog/ICompany";
+import {IUserShort} from "../../../models/catalog/IUserShort";
 
 
 

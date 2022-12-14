@@ -82,9 +82,14 @@ class Counterparty extends ActiveRecord
     {
         return $this->hasOne(UserResource::className(), ['id' => 'user_id']);
     }
-    
+//
+//    public function getContract()
+//    {
+//        return $this->hasOne(ContractResource::className(), ['id' => 'contract_id']);
+//    }
     public function getContract()
     {
-        return $this->hasOne(ContractResource::className(), ['id' => 'contract_id']);
+        return $this->hasMany(ContractResource::class, ['id' => 'contract_id'])
+            ->viaTable('counterparty_contract', ['counterparty_id' => 'id']);
     }
 }

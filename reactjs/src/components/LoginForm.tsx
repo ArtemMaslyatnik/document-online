@@ -15,7 +15,7 @@ const LoginForm: FC = () => {
     const submit = () => {
         login(username, password)
     }
-
+    console.log(error);
     return (
         <Form
             onFinish={submit}

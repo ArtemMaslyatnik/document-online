@@ -16,7 +16,7 @@ interface ListProps {
 
 type DataIndex = keyof IContract;
 
-const ContractList: FC <ListProps> = (props) => {
+const ChoiceContractList: FC <ListProps> = (props) => {
 
     const data: IContract[] = props.data;
 
@@ -188,4 +188,4 @@ const ContractList: FC <ListProps> = (props) => {
     return <Table columns={columns} dataSource={data} />;
 };
 
-export default ContractList;
+export default ChoiceContractList;

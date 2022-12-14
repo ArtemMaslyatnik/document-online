@@ -66,6 +66,7 @@ return [
                     ['class' => 'yii\rest\UrlRule', 'controller' => ['catalog/counterparty']],
                     ['class' => 'yii\rest\UrlRule', 'controller' => ['catalog/contract']],
                     ['class' => 'yii\rest\UrlRule', 'controller' => ['enumeration/type-contract']],
+                    ['class' => 'yii\rest\UrlRule', 'controller' => ['catalog/counterparty-contract']],
                 ],
             
                 ],

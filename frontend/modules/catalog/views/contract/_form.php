@@ -29,7 +29,7 @@ use yii\web\JqueryAsset;
     <?= $form->field($model, 'number')->textInput(['maxlength' => true]) ?>
 
     <?php echo $form->field($model, 'counterparty')->widget(Select2::classname(), [
-                                    'data' => $model->getСounterpartyList(),
+                                    'data' => $model->getCounterpartyList(),
                                     'options' => ['placeholder' => 'Покупець ...'],
                                     'pluginOptions' => [
                                         'allowClear' => true

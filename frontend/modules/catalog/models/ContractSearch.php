@@ -18,7 +18,7 @@ class ContractSearch extends Contract
     {
         return [
             [['id', 'company_id', 'counterparty_id', 'type_contract_id', 'created_at', 'updated_at'], 'integer'],
-            [['date', 'number'], 'safe'],
+            [['date', 'name'], 'safe'],
         ];
     }
 
@@ -67,7 +67,7 @@ class ContractSearch extends Contract
             'updated_at' => $this->updated_at,
         ]);
 
-        $query->andFilterWhere(['like', 'number', $this->number]);
+        $query->andFilterWhere(['like', 'number', $this->name]);
 
         return $dataProvider;
     }

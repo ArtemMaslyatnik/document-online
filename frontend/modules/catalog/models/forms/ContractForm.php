@@ -14,7 +14,7 @@ class ContractForm extends Model {
     
     //catalog contract header
     public $date;
-    public $number;
+    public $name;
     public $company;
     public $counterparty;
     public $type_contract;
@@ -29,7 +29,7 @@ class ContractForm extends Model {
     {
         return [
             [['date', 'number', 'counterparty', 'type_contract'], 'required'],
-            [['number',  'counterparty', 'type_contract'], 'string', 'max' => 255],
+            [['name',  'counterparty', 'type_contract'], 'string', 'max' => 255],
        ];
     }
     
@@ -49,7 +49,7 @@ class ContractForm extends Model {
             $Contract = new Contract();
             $Contract->user_id = $this->user->getId();
             $Contract->date = $this->date;
-            $Contract->number = $this->number;
+            $Contract->name = $this->name;
             $Contract->company_id = $this->company;
             $Contract->counterparty_id = $this->counterparty;
             $Contract->type_contract_id = 1;
@@ -61,7 +61,7 @@ class ContractForm extends Model {
 
     }
     
-    public function getСounterpartyList() {
+    public function getCounterpartyList() {
 
         return ArrayHelper::map(Counterparty::find()->all(), 'id', 'name');
 
